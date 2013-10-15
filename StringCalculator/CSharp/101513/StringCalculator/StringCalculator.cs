@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 namespace StringCalculatorLib {
+
     public class StringCalculator {
 
         public int Add(string values) {
