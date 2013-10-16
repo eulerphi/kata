@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringCalculatorLib", "StringCalculator\StringCalculatorLib.csproj", "{454D3B04-D7EE-4EF4-9B43-6C56DBD71B8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringCalculatorTests", "StringCalculatorTests\StringCalculatorTests.csproj", "{3F82A325-63CC-43B2-A8C1-248E115C628A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{454D3B04-D7EE-4EF4-9B43-6C56DBD71B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454D3B04-D7EE-4EF4-9B43-6C56DBD71B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454D3B04-D7EE-4EF4-9B43-6C56DBD71B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454D3B04-D7EE-4EF4-9B43-6C56DBD71B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F82A325-63CC-43B2-A8C1-248E115C628A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F82A325-63CC-43B2-A8C1-248E115C628A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F82A325-63CC-43B2-A8C1-248E115C628A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F82A325-63CC-43B2-A8C1-248E115C628A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
