@@ -5,47 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BankOCRLib {
-    public class Parser {
+    public class OcrNumberParser {
         private static readonly Dictionary<string, int> stringToNumber;
 
-        static Parser() {
+        static OcrNumberParser() {
             stringToNumber = new Dictionary<string, int>();
 
-            var zero = String.Join("\n",
-                " _ ",
-                "| |",
-                "|_|",
-                "   ");
-            stringToNumber.Add(zero, 0);
+            var numbers = String.Join("\n",
+                " _     _  _     _  _  _  _  _ ",
+                "| |  | _| _||_||_ |_   ||_||_|",
+                "|_|  ||_  _|  | _||_|  ||_| _|",
+                "                              ");
 
-            var one = String.Join("\n",
-                "   ",
-                "  |",
-                "  |",
-                "   ");
-            stringToNumber.Add(one, 1);
-
-            var two = String.Join("\n",
-                " _ ",
-                " _|",
-                "|_ ",
-                "   ");
-            stringToNumber.Add(two, 2);
-
+            var value = 0;
+            foreach (var number in GetNumbers(numbers)) {
+                stringToNumber.Add(number, value++);
+            }
         }
         public int ParseNumber(string input) {
             return stringToNumber[input];
         }
 
-        public string GetNumberAtIndex(string input, int index) {
-            var numberWidth = 3;
-            var startColumn = index * 3;
-
+        public static IEnumerable<string> GetNumbers(string input) {
             var lines = input.Split('\n');
-            var sublines = lines.Select(
-                line => line.Substring(startColumn, numberWidth));
+            var numberOfColumns = lines[0].Length;
 
-            return String.Join("\n", sublines);
+            var numberWidth = 3;
+            for (var startIndex = 0; startIndex < numberOfColumns; startIndex += numberWidth) {
+                var numberLines = lines.Select(l => l.Substring(startIndex, numberWidth));
+                 yield return String.Join("\n", numberLines);
+            }
+        }
+
+        public string Parse(string input) {
+            var output = String.Empty;
+            foreach (var number in GetNumbers(input)) {
+                output += this.ParseNumber(number);
+            }
+
+            return output;
         }
     }
 }
