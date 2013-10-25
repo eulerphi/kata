@@ -40,5 +40,17 @@ namespace BankOCRTests {
             var result = new OcrNumberParser().Parse(input);
             Assert.AreEqual("053986011", result);
         }
+
+        [TestMethod]
+        public void Parse_IllegibleNumbersAreTurnedIntoQuestionMarks() {
+            var input = String.Join("\n",
+                " _  _ ",
+                " _ |_|",
+                " _  _ ",
+                "                              ");
+
+            var result = new OcrNumberParser().Parse(input);
+            Assert.AreEqual("??", result);
+        }
     }
 }

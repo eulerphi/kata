@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BankOCRLib {
     public class OcrNumberParser {
-        private static readonly Dictionary<string, int> stringToNumber;
+        private static readonly Dictionary<string, string> patternToNumber;
 
         static OcrNumberParser() {
-            stringToNumber = new Dictionary<string, int>();
+            patternToNumber = new Dictionary<string, string>();
 
             var numbers = String.Join("\n",
                 " _     _  _     _  _  _  _  _ ",
@@ -19,7 +19,7 @@ namespace BankOCRLib {
 
             var value = 0;
             foreach (var number in GetNumbers(numbers)) {
-                stringToNumber.Add(number, value++);
+                patternToNumber.Add(number, (value++).ToString());
             }
         }
 
@@ -43,8 +43,11 @@ namespace BankOCRLib {
             }
         }
 
-        private int ParseNumber(string input) {
-            return stringToNumber[input];
+        private string ParseNumber(string input) {
+            string illegibleNumber = "?";
+
+            string number;
+            return patternToNumber.TryGetValue(input, out number) ? number : illegibleNumber;
         }
     }
 }
