@@ -1,12 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BankOCRLib {
+    public class ParseResult {
+        public Collection<string> Alternates { get; private set; }
+        public string Exact { get; set; }
+
+        public ParseResult() {
+            this.Alternates = new Collection<string>();
+        }
+    }
+
+
     public class OcrNumberParser {
         private static readonly Dictionary<string, string> patternToNumber;
+        private static readonly Dictionary<string, List<string>> numberToAlternates;
 
         static OcrNumberParser() {
             patternToNumber = new Dictionary<string, string>();
@@ -21,15 +33,24 @@ namespace BankOCRLib {
             foreach (var number in GetNumbers(numbers)) {
                 patternToNumber.Add(number, (value++).ToString());
             }
+
+            numberToAlternates = new Dictionary<string, List<string>>();
+            //numberToAlternates.Add()
         }
 
-        public string Parse(string input) {
+        public ParseResult Parse(string input) {
             var output = String.Empty;
+            var alternates = new List<List<string>>();
             foreach (var number in GetNumbers(input)) {
                 output += this.ParseNumber(number);
+                alternates.Add(this.ParseAlternates(number));
             }
 
-            return output;
+            return new ParseResult { Exact = output };
+        }
+
+        private List<string> ParseAlternates(string number) {
+            throw new NotImplementedException();
         }
 
         private static IEnumerable<string> GetNumbers(string input) {
