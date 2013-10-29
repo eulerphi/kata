@@ -61,7 +61,7 @@ namespace BankOCRTests {
                 " _  _ ",
                 " _|| |",
                 " _||_|",
-                "                              ");
+                "      ");
 
             var result = new OcrNumberParser().Parse(input);
             Assert.AreEqual("30", result.Exact);

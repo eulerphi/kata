@@ -15,10 +15,9 @@ namespace BankOCRLib {
         }
     }
 
-
     public class OcrNumberParser {
         private static readonly Dictionary<string, string> patternToNumber;
-        private static readonly Dictionary<string, List<string>> numberToAlternates;
+        private static readonly Dictionary<string, string> numberToAlternate;
 
         static OcrNumberParser() {
             patternToNumber = new Dictionary<string, string>();
@@ -34,23 +33,30 @@ namespace BankOCRLib {
                 patternToNumber.Add(number, (value++).ToString());
             }
 
-            numberToAlternates = new Dictionary<string, List<string>>();
-            //numberToAlternates.Add()
+            numberToAlternate = new Dictionary<string, string>();
+            numberToAlternate.Add("3", "9");
+            numberToAlternate.Add("0", "8");
         }
 
         public ParseResult Parse(string input) {
             var output = String.Empty;
-            var alternates = new List<List<string>>();
+            var alternate = String.Empty;
             foreach (var number in GetNumbers(input)) {
-                output += this.ParseNumber(number);
-                alternates.Add(this.ParseAlternates(number));
+                var parsedNumber = this.ParseNumber(number);
+                output += parsedNumber;
+                alternate += this.ParseAlternate(parsedNumber);
             }
 
-            return new ParseResult { Exact = output };
+            var result = new ParseResult { Exact = output };
+            result.Alternates.Add(alternate);
+            return result;
         }
 
-        private List<string> ParseAlternates(string number) {
-            throw new NotImplementedException();
+        private string ParseAlternate(string number) {
+            string alternate;
+            return numberToAlternate.TryGetValue(number, out alternate)
+                ? alternate
+                : number;
         }
 
         private static IEnumerable<string> GetNumbers(string input) {
